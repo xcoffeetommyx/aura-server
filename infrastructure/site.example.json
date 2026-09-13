@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "domain": "example.invalid",
+  "serverId": "00000000000000000000000000000000",
+  "derpIPv4": "203.0.113.10",
+  "rendezvousIPv4": "203.0.113.11",
+  "ownerLANIPv4": "192.168.1.10",
+  "regionId": 9001
+}

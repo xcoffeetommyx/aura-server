@@ -15,6 +15,8 @@ home server. No consumer Go, Git/source checkout, Docker or Tailscale requiremen
 * [Existing Navidrome migration](docs/MIGRATION.md)
 * [Release production, provenance and trust](docs/RELEASE.md)
 * [Narrow distribution threat model](docs/SECURITY.md)
+* [PROD P1 operator infrastructure preparation](infrastructure/README.md) — separate
+  public relay/pairing services; not yet publicly deployed or cellular-qualified
 
 `components.json` fixes the bridge, Navidrome, Tailcat, Aura Tailscale and Go
 revisions. `release.py` rejects packages with a different graph. It wraps the
