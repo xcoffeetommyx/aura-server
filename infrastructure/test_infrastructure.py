@@ -93,10 +93,28 @@ class CertificateTests(unittest.TestCase):
 
     def test_expired_certificate_rejected(self):
         expired = self.root / "expired.pem"
-        subprocess.run(["openssl", "x509", "-in", str(self.cert), "-signkey", str(self.key),
-                        "-not_before", "20200101000000Z", "-not_after", "20200102000000Z", "-out", str(expired)],
+        # `ca` supports explicit validity dates on OpenSSL 3.0 (Ubuntu 24.04)
+        # too; the newer x509 -not_before/-not_after options do not.
+        request = self.root / "expired.csr"
+        database = self.root / "index.txt"; database.write_text("")
+        serial = self.root / "serial"; serial.write_text("01\n")
+        config = self.root / "ca.cnf"
+        config.write_text("[ca]\ndefault_ca=fixture\n[fixture]\n"
+                          f"database={database}\nserial={serial}\nnew_certs_dir={self.root}\n"
+                          f"certificate={self.cert}\nprivate_key={self.key}\n"
+                          "default_md=sha256\npolicy=policy\nx509_extensions=extensions\n"
+                          "[policy]\ncommonName=supplied\n[extensions]\n"
+                          f"subjectAltName=DNS:{self.host}\n")
+        subprocess.run(["openssl", "req", "-new", "-key", str(self.key),
+                        "-subj", "/CN=" + self.host, "-out", str(request)],
                        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        with self.assertRaises(subprocess.CalledProcessError): renew.validate_pair(expired, self.key, self.host, ca_file=expired)
+        subprocess.run(["openssl", "ca", "-batch", "-config", str(config),
+                        "-in", str(request), "-startdate", "20200101000000Z",
+                        "-enddate", "20200102000000Z", "-out", str(expired)],
+                       check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        expiry = subprocess.check_output(["openssl", "x509", "-in", str(expired), "-noout", "-enddate"], text=True)
+        self.assertIn("2020", expiry)
+        with self.assertRaises(subprocess.CalledProcessError): renew.validate_pair(expired, self.key, self.host, ca_file=self.cert)
 
     def test_different_private_key_rejected(self):
         other = self.root / "other.key"
