@@ -1,60 +1,71 @@
-# Preserved T14 candidate: infrastructure transition boundary
+# Infrastructure transition and preserved identity
 
-The original Docker Navidrome is active; the native candidate is stopped/disabled.
-Do not restart it with the removed temporary relay. T14's verified backups remain
-authoritative recovery material. P1 preparation did not acquire new SSH access,
-touch either database, alter either phone, or replace trust state.
+P1's domain/two-host preparation is historical. P1B qualified the personal
+single-home-server public IPv4 layout in [SELF-HOSTED.md](SELF-HOSTED.md).
+The original Docker Navidrome is stopped, preserved for rollback. The native
+p1b-candidate-1 deployment is enabled. Do not start both database writers.
 
-## Required inputs and continuity checks
+## Database and authorization continuity
 
-Obtain actual owner DNS/certificate, public relay health and rendezvous endpoint
-before mutation. Compare any new source-database activity with the stopped candidate.
-Only if it changed is another coherent refresh needed; do not replay migration
-solely to reproduce T14. Never run two writers on one database.
+Before activation, compare the live original database with its prior coherent
+snapshot. P1B found changes, created another protected backup, and refreshed the
+adopted database through the established procedure. Users, playlists, media and
+the exact logical origin were preserved. Never replace the only backup.
 
-Preserve exact logical origin, database/music/configuration, server private key/PSK,
-installation ID, owner capability, approved keys and tombstones except explicit
-owner-directed revocations/enrollments. Record non-secret equality results privately;
-never print the raw identity document.
+Preserve server private key/PSK, installation ID, owner capability, active keys,
+tombstones, database/music/configuration and logical origin. Infrastructure IP is
+not library identity. Ordinary certificate renewal does not require re-pairing.
 
-Owner hostname/certificate changes are separate from relay bootstrap. Update only
-ownerAddress/ownerHost and configured rendezvous in the package config, keeping
-the complete existing config and exact logicalOrigin. Install the validated
-certificate pair under the existing private-file contract, run the package check
-and health against the new exact hostname, then configure renewal. Normal renewal
-with the same name needs no re-pairing or cache change.
+## Durable relay descriptors
 
-## Relay descriptors are durable, not a live global map
+Editing region.json alone cannot migrate an existing identity or Android profile.
+Bridge commit 4abd8e8cd33853980826e20488c7f915fa971f7e supplies the qualified
+offline reconfigure-ip-relay operation. Use its CLI help and the supported
+package lifecycle: stop the runtime, back up protected state, provide a validated
+public-IP region, perform the locked atomic transition, validate and restart.
+It preserves identity/registry fields except relay metadata and rejects a running
+instance, missing state or unsafe region. Never hand-edit phone secrets.
 
-Pinned source: `internal/tailcatadapter/identity.go` stores Relay inside Identity;
-`serverpackage.Initialize` reads region.json only for initial identity creation.
-Every Android encrypted profile has its own authenticated descriptor/bootstrap.
-Therefore **editing region.json alone does not migrate an existing bridge/client**.
-The old descriptor also carries the old explicit address/hostname/port; a new
-domain's DNS cannot silently repair it. Do not replace Identity with a newly
-generated one or hand-edit secrets as a normal installation step.
+Deliver the changed descriptor through explicit owner-approved OPAQUE pairing
+with a fresh client key. Android commit 310f8ee permits changed relay metadata
+only after that verified flow matches the existing server fingerprint. Ordinary
+restore still rejects changed descriptors. Atomic replacement checks the previous
+key/descriptor to reject stale writes. Revoke the superseded key explicitly and
+retain its tombstone; do not silently reapprove it.
 
-The one-time switch requires a reviewed offline adapter operation that changes
-only validated relay metadata while preserving the exact server key/PSK/registry,
-plus explicit delivery of a new authenticated descriptor to each phone. The current
-package does not expose a general relay-migration command. **This operation remains
-to be implemented/qualified against the actual selected endpoints before activation;
-P1 preparation does not pretend it already happened.** It is a narrow infrastructure
-configuration task, not permission to redesign pairing or trust.
+P1B completed this transition on the S23+ over real cellular, preserving the
+logical origin/account/download namespace. The old S23+ key was revoked. The
+A14 was unplugged with its existing state preserved and has not been moved to
+the new relay descriptor; it needs explicit pairing again when next used.
 
-The existing owner-approved Pair this device again flow can supply a fresh descriptor
-with a fresh client key. Revoke the exact superseded key through the owner workflow;
-retain its tombstone. Verify the unchanged server fingerprint and logical library,
-preserved local downloads and survivor access. Do not make certificate renewal
-trigger this one-time relay transition, and do not silently reapprove revoked keys.
+## Personal endpoint and address change
 
-Android already supports the operator endpoint through Gradle
-`-PauraPairingService=https://pairing.DOMAIN`; server configuration has `rendezvous`.
-The T14 APK has no permanent endpoint configured. Set the existing build parameter
-once the actual hostname is known, build an ordinary signed in-place upgrade, and
-run focused remote-enrollment validation. No app protocol or hardcoded personal
-server name is needed. A coordinator cannot supply an arbitrary backend target.
+The ordinary signed Android build uses the existing operator parameter
+-PauraPairingService=https://PUBLIC_IP:8444. It contains no private CA or secret.
+The owner enters a pairing code, not an IP, in the normal phone flow. This is a
+personal configured deployment, not a global six-digit locator or universal
+discovery service. An arbitrary home server cannot be found from six digits alone.
 
-After these scoped operations, execute OPERATIONS.md's real cellular, relay-failure
-and rendezvous-independence matrix. Until then leave the original server/backup path
-intact and classify P1 BLOCKED. Temporary test relays are not permanent substitutes.
+The root-owned WAN observer quarantines a confirmed changed IP. Do not clear its
+repair marker until the operator independently verifies the new address, issues
+its trusted certificate, updates expected IP/firewall/local routing/owner identity,
+and performs the offline relay transition. Explicitly re-pair affected phones;
+they may need to return to LAN. Address stability over months is unmeasured.
+No domain, VPS, cloud directory or automatic insecure descriptor refresh is used.
+
+The owner TLS IP/port is separate from the logical Navidrome origin. Renewal
+validates chain, IP SAN, expiry and key match before installing private material.
+Owner management stays LAN-only behind the host guard; media uses the authenticated
+Tailcat bridge, with Navidrome bound to loopback.
+
+## Recovery
+
+Preserve T14 and P1B backup roots. Software rollback must not restore stale
+authorization state. Historical state restoration starts offline and requires
+approval review/re-pairing where trust is uncertain. Restore original Docker
+Navidrome only after stopping native Aura Server; preserve the matching database,
+configuration and encryption material. No backup covers writes made afterward.
+
+The old Tailscale configuration remains for rollback/unrelated administration.
+The new phone media path was demonstrated with Wi-Fi/VPN/Tailscale disabled.
+PROD P2 publication remains separately authorized; no source or release was pushed.

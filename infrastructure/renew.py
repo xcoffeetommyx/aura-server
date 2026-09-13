@@ -4,6 +4,7 @@ Public services use systemd LoadCredential; keys never enter their images/enviro
 The home owner service retains its existing private regular-file contract.
 """
 import argparse
+import ipaddress
 import json
 import os
 from pathlib import Path
@@ -20,16 +21,28 @@ def run(args):
     return subprocess.run(args, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=60)
 
 
-def validate_pair(cert, key, host, *, ca_file=None):
-    hostname(host)
+def public_ip(value):
+    address = ipaddress.ip_address(value)
+    if not address.is_global or address.is_multicast or getattr(address, "ipv4_mapped", None) is not None or "%" in value:
+        raise ValueError("A public unscoped IP identifier is required")
+    return str(address)
+
+
+def validate_pair(cert, key, host, *, ca_file=None, ip_identifier=False):
+    if ip_identifier:
+        host = public_ip(host)
+    else:
+        hostname(host)
     if cert.stat().st_size > 65536 or key.stat().st_size > 32768:
         raise ValueError("Certificate material exceeds budget")
     ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER).load_cert_chain(cert, key)
     # ca_file exists only for owned test callers. CLI always uses the system trust store.
     ca = ["-CAfile", str(ca_file)] if ca_file else []
-    run(["openssl", "verify", *ca, "-purpose", "sslserver", "-verify_hostname", host,
+    run(["openssl", "verify", *ca, "-purpose", "sslserver", "-verify_ip" if ip_identifier else "-verify_hostname", host,
          "-untrusted", str(cert), str(cert)])
-    run(["openssl", "x509", "-in", str(cert), "-noout", "-checkend", "1209600"])
+    # IP certificates currently have a 160-hour lifetime. Keep the previous DNS
+    # policy, but require at least 48 hours on a newly installed short-lived pair.
+    run(["openssl", "x509", "-in", str(cert), "-noout", "-checkend", "172800" if ip_identifier else "1209600"])
 
 
 def atomic_copy(source, destination, uid, gid):

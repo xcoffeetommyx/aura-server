@@ -1,5 +1,11 @@
 # PROD P1 operator infrastructure
 
+**Historical two-public-host pilot; superseded by the owner's P1B requirement.**
+The owner requires a single self-hosted home laptop, without a purchased domain,
+VPS or cloud tunnel. See [SELF-HOSTED.md](SELF-HOSTED.md) for the qualified personal deployment.
+The original preparation below is retained as history and reusable tooling, not
+the required final deployment.
+
 **Prepared and locally exercised; not publicly deployed.** No owned domain, DNS
 automation or public hosts were identified at P1 preparation. Public cellular
 acceptance is blocked until those resources exist. This directory does not install
