@@ -30,6 +30,7 @@ Docker or Tailscale requirement for Aura operation.
 * [Upgrade and recovery](docs/UPGRADE.md)
 * [Existing Navidrome migration](docs/MIGRATION.md)
 * [Release production, provenance and trust](docs/RELEASE.md)
+* [First GitHub release delivery acceptance](docs/P2-ACCEPTANCE.md)
 * [Narrow distribution threat model](docs/SECURITY.md)
 * [P1B self-hosted infrastructure](infrastructure/SELF-HOSTED.md) — public IPv4,
   IP certificate renewal, isolated DERP/rendezvous and operational recovery
