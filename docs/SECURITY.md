@@ -19,8 +19,10 @@ who replaces the verifier and its trusted component lock is outside this boundar
 The installer remains a separate explicit action after review. A malicious archive
 with a mismatching authenticated hash is rejected before any decompression.
 
-Checksums do not authenticate an attacker-controlled release record. Publication,
-signed provenance and verified trusted publisher/repository identity remain owner
-actions. No private release key is stored or generated. No arbitrary historical
+Checksums do not authenticate an attacker-controlled release record. Verify the
+publisher is `xcoffeetommyx/aura-server` and obtain the expected hash from a reviewed
+exact commit or independent authenticated operator channel. Initial publication
+uses GitHub HTTPS and exact source/checksum records; signed build provenance is
+not claimed and remains a gate. No private release key is stored or generated. No arbitrary historical
 state rollback is declared safe. Restore uses T12 offline quarantine and fresh
 approval, independently of software delivery.

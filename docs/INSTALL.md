@@ -8,16 +8,27 @@ headlessly using its protected owner page.
 Before downloading, obtain the release tool, `components.json`, exact version,
 architecture and SHA-256 from an **authenticated release record**. A checksum
 downloaded from the same compromised source is not publisher authentication.
-No public Aura Server repository or production signature is claimed yet.
+The public repository is https://github.com/xcoffeetommyx/aura-server. The first
+release is v0.1.0-beta.1; it intentionally retains the unchanged qualified internal
+package version p1b-candidate-1. Production signing remains a gate. Review the
+fixed release record and expected checksum through your authenticated GitHub
+session or another trusted operator channel before fetching the binary.
 
 ```sh
-python3 release.py fetch --url https://github.com/OWNER/REPOSITORY/releases/download/VERSION/ARTIFACT.tar.gz \
-  --sha256 TRUSTED_SHA256 --output ARTIFACT.tar.gz
-python3 release.py verify --archive ARTIFACT.tar.gz --sha256 TRUSTED_SHA256 \
-  --version VERSION --arch amd64 --destination verified-release
+curl --fail --proto '=https' --tlsv1.2 -o release.py https://raw.githubusercontent.com/xcoffeetommyx/aura-server/76cdcaf7459d64f700509abb4643951e1027615d/release.py
+curl --fail --proto '=https' --tlsv1.2 -o components.json https://raw.githubusercontent.com/xcoffeetommyx/aura-server/76cdcaf7459d64f700509abb4643951e1027615d/components.json
+python3 release.py fetch --url https://github.com/xcoffeetommyx/aura-server/releases/download/v0.1.0-beta.1/aura-server-p1b-candidate-1-linux-amd64.tar.gz \
+  --sha256 8e248491de55bff47dcfb00d4af59ceb2702772040491588132fd489f1865e72 --output aura-server.tar.gz
+python3 release.py verify --archive aura-server.tar.gz \
+  --sha256 8e248491de55bff47dcfb00d4af59ceb2702772040491588132fd489f1865e72 \
+  --version p1b-candidate-1 --arch amd64 --destination verified-release
 ```
 
-These are placeholders, not working release URLs or hashes. Verification checks
+Run in a new private directory (for example, umask 077 before creating it).
+These URLs identify the first release's qualified verifier/lock and exact archive.
+Also obtain the release's corresponding-source and third-party-notices assets;
+they accompany binary distribution and must remain available to recipients.
+Verification checks
 the archive before extraction, exact version, component lock, internal inventory,
 every file hash and both ELF architectures. Extraction refuses existing output
 and unsafe entries. It executes nothing. Run as an ordinary user in a private
@@ -42,4 +53,6 @@ For existing libraries follow MIGRATION.md; do not create/reset the old account.
 Deliver the unique owner bookmark privately. Normal owner operation uses HTTPS
 to open pairing, then Android discovers/selects the server and enters the code.
 Navidrome authentication remains separate. Site/certificate provisioning and
-final public release publication remain explicit operator responsibilities.
+operator infrastructure remain explicit responsibilities. For the no-domain home
+deployment, follow [SELF-HOSTED.md](../infrastructure/SELF-HOSTED.md). The media
+package does not overwrite an existing P1B infrastructure configuration.

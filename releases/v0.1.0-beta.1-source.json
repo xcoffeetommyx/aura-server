@@ -1,0 +1,75 @@
+{
+  "format": 1,
+  "release": "v0.1.0-beta.1",
+  "sources": [
+    {
+      "component": "distribution",
+      "repository": "https://github.com/xcoffeetommyx/aura-server",
+      "revision": "76cdcaf7459d64f700509abb4643951e1027615d",
+      "source": "https://github.com/xcoffeetommyx/aura-server/tree/76cdcaf7459d64f700509abb4643951e1027615d",
+      "archive": "https://github.com/xcoffeetommyx/aura-server/archive/76cdcaf7459d64f700509abb4643951e1027615d.tar.gz",
+      "material": "Qualified verifier/component lock; public branch anonymizes three test fixtures only."
+    },
+    {
+      "component": "bridge-package",
+      "repository": "https://github.com/xcoffeetommyx/aura-tailcat-bridge",
+      "revision": "4abd8e8cd33853980826e20488c7f915fa971f7e",
+      "source": "https://github.com/xcoffeetommyx/aura-tailcat-bridge/tree/4abd8e8cd33853980826e20488c7f915fa971f7e",
+      "archive": "https://github.com/xcoffeetommyx/aura-tailcat-bridge/archive/4abd8e8cd33853980826e20488c7f915fa971f7e.tar.gz",
+      "material": "Bridge source, packaging/build-bundle.py, aura-package.py, go.mod/go.sum, pinned Tailscale source reconstruction bundle/lock."
+    },
+    {
+      "component": "navidrome",
+      "repository": "https://github.com/xcoffeetommyx/aura-navidrome",
+      "revision": "a61433737d1e8909e3ba8ee4e2092b55bc81fb4e",
+      "source": "https://github.com/xcoffeetommyx/aura-navidrome/tree/a61433737d1e8909e3ba8ee4e2092b55bc81fb4e",
+      "archive": "https://github.com/xcoffeetommyx/aura-navidrome/archive/a61433737d1e8909e3ba8ee4e2092b55bc81fb4e.tar.gz",
+      "material": "Canonical GPL source, UI source/package-lock.json, go.mod/go.sum, Makefile/build definitions. README-only publication commit is not the binary source revision."
+    },
+    {
+      "component": "rendezvous",
+      "repository": "https://github.com/xcoffeetommyx/aura-rendezvous",
+      "revision": "0a3ea0bed5c047033aebc793e22696216018ad4d",
+      "source": "https://github.com/xcoffeetommyx/aura-rendezvous/tree/0a3ea0bed5c047033aebc793e22696216018ad4d",
+      "archive": "https://github.com/xcoffeetommyx/aura-rendezvous/archive/0a3ea0bed5c047033aebc793e22696216018ad4d.tar.gz",
+      "material": "Separate infrastructure source/build/configuration; not a binary inside the media package archive."
+    },
+    {
+      "component": "aura-tailscale",
+      "repository": "https://github.com/xcoffeetommyx/aura-tailscale",
+      "revision": "55d7fa798eed422c58486968bd2ecec0514915e2",
+      "source": "https://github.com/xcoffeetommyx/aura-tailscale/tree/55d7fa798eed422c58486968bd2ecec0514915e2",
+      "archive": "https://github.com/xcoffeetommyx/aura-tailscale/archive/55d7fa798eed422c58486968bd2ecec0514915e2.tar.gz",
+      "material": "Exact qualified fork including upstream PR patches and Aura partial-send/negative-count corrections; not official Tailscale."
+    },
+    {
+      "component": "tailcat",
+      "repository": "https://github.com/tailscale/tailcat",
+      "revision": "7a50a1abd8bca63432afbcc5c04dd278c7029e31",
+      "source": "https://github.com/tailscale/tailcat/tree/7a50a1abd8bca63432afbcc5c04dd278c7029e31",
+      "archive": "https://github.com/tailscale/tailcat/archive/7a50a1abd8bca63432afbcc5c04dd278c7029e31.tar.gz",
+      "material": "Exact official BSD Tailcat source."
+    },
+    {
+      "component": "go-taglib",
+      "repository": "https://github.com/deluan/go-taglib",
+      "revision": "1975cb12f59d86048b8d07d04f9d6b4c80623c31",
+      "source": "https://github.com/deluan/go-taglib/tree/1975cb12f59d86048b8d07d04f9d6b4c80623c31",
+      "archive": "https://github.com/deluan/go-taglib/archive/1975cb12f59d86048b8d07d04f9d6b4c80623c31.tar.gz",
+      "material": "Pinned LGPL Go wrapper, embedded Wasm and build scripts; exact full module version in dependency inventory."
+    },
+    {
+      "component": "taglib-wasm-source",
+      "repository": "https://github.com/taglib/taglib",
+      "revision": "1b94b93762636ebe5733180c3e825be4621e4c7f",
+      "source": "https://github.com/taglib/taglib/tree/1b94b93762636ebe5733180c3e825be4621e4c7f",
+      "archive": "https://github.com/taglib/taglib/archive/1b94b93762636ebe5733180c3e825be4621e4c7f.tar.gz",
+      "material": "Exact go-taglib submodule source; preserve licensing/build scripts when rebuilding the embedded Wasm."
+    }
+  ],
+  "limits": [
+    "Locally produced qualified bytes, not independently reproduced CGO build or signed build attestation.",
+    "Dependencies and upstream notices are inventoried separately. Final legal review remains open.",
+    "Personal physical qualification records remain private; no user data is distributed."
+  ]
+}

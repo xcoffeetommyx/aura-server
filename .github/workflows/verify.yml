@@ -1,0 +1,32 @@
+name: Verify distribution tooling
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      verify_published_asset:
+        description: Download and verify the fixed first public release asset
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Distribution archive tests
+        run: python3 -m unittest -v test_release
+      - name: Infrastructure configuration and certificate tests
+        run: python3 -m unittest discover -s infrastructure -p 'test_*.py' -v
+      - name: Privilege-drop fixture
+        working-directory: infrastructure
+        run: sudo python3 -m unittest -v test_infrastructure.CertificateTests.test_owner_file_operation_really_drops_root
+      - name: Verify published qualified bytes without executing them
+        if: github.event_name == 'workflow_dispatch' && inputs.verify_published_asset
+        run: |
+          python3 release.py fetch --url https://github.com/xcoffeetommyx/aura-server/releases/download/v0.1.0-beta.1/aura-server-p1b-candidate-1-linux-amd64.tar.gz --sha256 8e248491de55bff47dcfb00d4af59ceb2702772040491588132fd489f1865e72 --output /tmp/aura-qualified.tar.gz
+          python3 release.py verify --archive /tmp/aura-qualified.tar.gz --sha256 8e248491de55bff47dcfb00d4af59ceb2702772040491588132fd489f1865e72 --version p1b-candidate-1 --arch amd64 --destination /tmp/aura-verified

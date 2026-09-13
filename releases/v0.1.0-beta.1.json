@@ -1,0 +1,31 @@
+{
+  "format": 1,
+  "releaseTag": "v0.1.0-beta.1",
+  "packageVersion": "p1b-candidate-1",
+  "architecture": "linux-amd64",
+  "asset": "aura-server-p1b-candidate-1-linux-amd64.tar.gz",
+  "sha256": "8e248491de55bff47dcfb00d4af59ceb2702772040491588132fd489f1865e72",
+  "url": "https://github.com/xcoffeetommyx/aura-server/releases/download/v0.1.0-beta.1/aura-server-p1b-candidate-1-linux-amd64.tar.gz",
+  "qualifiedToolingRevision": "76cdcaf7459d64f700509abb4643951e1027615d",
+  "bridgeRevision": "4abd8e8cd33853980826e20488c7f915fa971f7e",
+  "navidromeRevision": "a61433737d1e8909e3ba8ee4e2092b55bc81fb4e",
+  "tailcatRevision": "7a50a1abd8bca63432afbcc5c04dd278c7029e31",
+  "tailscaleRevision": "55d7fa798eed422c58486968bd2ecec0514915e2",
+  "rendezvousRevision": "0a3ea0bed5c047033aebc793e22696216018ad4d",
+  "binaryEvidence": {
+    "bin/aura-server": {
+      "sha256": "ea1cd38daa991db8be473c1c599b5deb5e2a905f9c91e138addc08f4a60c06a3",
+      "goVersion": "go1.27.1",
+      "sourceEvidence": "embedded clean vcs.revision plus qualified producer record"
+    },
+    "bin/navidrome": {
+      "sha256": "119ce8a3aaaf3ede2d880c217f4680414bb083d5d0f429725c224abb2d7bb0bd",
+      "goVersion": "go1.26.0",
+      "sourceEvidence": "qualified canonical producer record; no embedded vcs.revision",
+      "buildTags": "netgo,sqlite_fts5",
+      "cgo": true
+    }
+  },
+  "distribution": "Unchanged physically qualified P1B archive; first public prerelease label does not relabel or rebuild its contents.",
+  "attestation": "No cryptographic build attestation or reproducible CGO rebuild claimed. Exact checksum, component source and producer qualification records are supplied."
+}

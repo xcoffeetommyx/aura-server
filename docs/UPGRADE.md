@@ -11,6 +11,13 @@ sudo python3 verified-release/aura-package.py upgrade --bundle verified-release
 sudo python3 verified-release/aura-package.py status
 ```
 
+The P2 GitHub delivery proof can safely use the same internal p1b-candidate-1
+version. The lifecycle tool accepts an already-installed immutable release only
+when the manifest/content matches; a different archive under the same version is
+rejected. This verifies delivery/lifecycle without replacing the qualified binaries.
+Preserve /etc/aura-infrastructure, its certificate state and the systemd guard
+drop-ins independently; the software upgrade must not replace them with examples.
+
 The installer stages immutable software and atomically selects the release.
 Persistent identity, PSK, approvals/tombstones, owner capability, Navidrome data
 and music are outside software releases. A binary rollback uses the same upgrade
